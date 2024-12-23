@@ -1,0 +1,19 @@
+USE appdbproj;
+
+SELECT 
+    country.Name,
+    CASE
+        WHEN countrylanguage.isofficial = 'T' THEN 'YES'
+        WHEN countrylanguage.isofficial = 'F' THEN 'NO'
+        ELSE 'undefined'
+    END AS Official,
+    SUM(countrylanguage.percentage) AS Percentage
+FROM 
+    country
+JOIN 
+    countrylanguage ON country.code = countrylanguage.countrycode
+WHERE country.continent = 'europe'
+GROUP BY 
+    country.Name, Official
+ORDER BY
+	country.Name;

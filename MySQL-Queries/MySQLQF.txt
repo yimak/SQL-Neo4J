@@ -1,0 +1,18 @@
+SELECT 
+    hasvisitedcity.personid,
+    person.personname,
+    city.name
+FROM 
+    hasvisitedcity
+JOIN 
+    person ON hasvisitedcity.personid = person.personID
+JOIN 
+    city ON hasvisitedcity.cityid = city.id
+JOIN 
+    country ON city.countrycode = country.code
+GROUP BY 
+    hasvisitedcity.personid,
+    person.personname,
+    city.name,city.population
+HAVING 
+    city.population > (SELECT SUM(country.population) FROM country WHERE country.region = 'Micronesia');

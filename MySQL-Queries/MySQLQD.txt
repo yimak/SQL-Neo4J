@@ -1,0 +1,14 @@
+SELECT 
+    country.Continent, country.Name, country.GNP
+FROM
+    country
+        JOIN
+    (SELECT 
+        MAX(gnp) AS max_GNP, continent
+    FROM
+        country
+    GROUP BY continent) AS tmp ON country.gnp = tmp.max_GNP
+        AND country.continent = tmp.continent
+WHERE
+    country.gnp != 0
+ORDER BY country.GNP DESC , country.continent ASC , country.name ASC; 

@@ -1,0 +1,4 @@
+MATCH (e:Employee)-[:MEMBER_OF]->(t:Team)-[:WORKS_ON]->(p:Project)
+WITH DISTINCT e, t, p
+RETURN t.name as Name, COUNT(DISTINCT p) AS Projects, COUNT(DISTINCT e) AS Members
+ORDER BY Name

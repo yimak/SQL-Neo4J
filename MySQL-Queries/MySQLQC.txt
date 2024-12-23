@@ -1,0 +1,14 @@
+SELECT 
+    person.personid,
+    person.personname,
+    CASE
+        WHEN city.population BETWEEN 0 AND 49999 THEN 'Small City'
+        WHEN city.population BETWEEN 50000 AND 99999 THEN 'Big City'
+        WHEN city.population BETWEEN 100000 AND 199999 THEN 'Large City'
+        WHEN city.population BETWEEN 200000 AND 499999 THEN 'Huge City'
+        ELSE 'Mega City'
+    END AS City
+FROM
+    person
+        JOIN
+    city ON city.ID = person.city;

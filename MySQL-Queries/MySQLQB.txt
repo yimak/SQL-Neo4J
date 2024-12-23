@@ -1,0 +1,16 @@
+USE appdbproj;
+SELECT person.personid,
+	CASE	
+		WHEN LOCATE(',', person.personname) > 0 THEN
+			CONCAT(
+                LTRIM(SUBSTRING_INDEX(person.personname, ',', -1)),
+                ' ',
+                SUBSTRING_INDEX(person.personname, ',', 1)
+            )
+        ELSE person.personname
+    END AS personname,
+    country.name
+FROM person
+JOIN city ON person.city = city.ID
+JOIN country ON city.countrycode = country.code
+GROUP BY person.personID;

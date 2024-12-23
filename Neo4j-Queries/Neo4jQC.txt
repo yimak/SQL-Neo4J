@@ -1,0 +1,4 @@
+MATCH(e:Employee{eid:'E15'})-[:MANAGES]->()<-[]-()<-[:MEMBER_OF]-(s:Employee)
+WITH e,s
+ORDER BY s.eid
+RETURN e.name AS Name, COLLECT (DISTINCT s.eid) AS Employees 

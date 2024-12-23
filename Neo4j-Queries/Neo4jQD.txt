@@ -1,0 +1,10 @@
+MATCH (e:Employee)
+OPTIONAL MATCH (e)-[:MEMBER_OF]->(t:Team)
+WITH e, COLLECT(t.name) AS TeamCol
+UNWIND
+    CASE 
+        WHEN size(TeamCol) > 0 THEN TeamCol
+        ELSE [null]
+    END AS Team
+RETURN e.eid AS EID, e.name AS Name, Team
+ORDER BY EID
